@@ -1,0 +1,313 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+					<section>
+						<h1>Object-Oriented Programming</h1>
+						<!-- <h3>The HTML Presentation Framework</h3> -->
+						<p>
+								<ul>
+										<li>Nguyễn Khắc Minh</li>
+										<li>Hoàng Thị Thu Uyên</li>
+										<li>Nguyễn Thị Thanh Tâm</li>
+								</ul>
+						</p>
+					</section>
+					<section>
+							<ol><li>Lập trình hướng đối tượng là gì?</li>
+							<li>Ưu điểm của lập trình hướng đối tượng.</li>
+							<li >Một số khái niệm cơ bản trong OOP.</li>
+							<li>Các tính chất của OOP</li>
+							</ol>
+					</section>
+					<section>
+						<h2>I. Lập trình hướng đối tượng là gì ?</h2>
+						<p>- Lập trình hướng đối tượng hay còn gọi là lập trình OOP là kỹ thuật lập trình mà tất cả các logic, yêu cầu thực tế đều được xây dựng xoay quanh các đối tượng.</p>
+						<p>- Lập trình hướng đối tượng có 4 tính chất chính: </p>
+						<ul>
+							<li>Tính trừu tượng (abstraction).</li>
+							<li>Tính kế thừa (inheritance).</li>
+							<li>Tính đóng gói (encapsulation).</li>
+							<li>Tính đa hình (polymorphism).</li>
+						</ul>
+							<!-- <section data-markdown>
+									<script type="text/template">
+										### a. Tránh truy vấn con kết hợp
+										Thay vì:
+				
+										```
+										SELECT c.Name, 
+										c.City,
+										(SELECT CompanyName FROM Company WHERE ID = c.CompanyID) AS CompanyName 
+										FROM Customer c
+										```
+										Sử dụng: 
+										```
+										SELECT c.Name, 
+													c.City, 
+													co.CompanyName 
+										FROM Customer c 
+											LEFT JOIN Company co
+												ON c.CompanyID = co.CompanyID
+										```
+									</script>
+								</section>
+
+							<section data-markdown>
+								<script type="text/template">
+									### a. Tránh truy vấn con kết hợp
+									Thay vì:
+			
+									```
+									for (int i = 0; i < 1000; i++) {
+										SqlCommand cmd = new SqlCommand("INSERT INTO TBL (A,B,C) VALUES...");
+										cmd.ExecuteNonQuery();
+									}
+									```
+									Sử dụng: 
+									```
+									INSERT INTO TableName (A,B,C) VALUES (1,2,3),(4,5,6),(7,8,9) -- SQL SERVER 2008
+
+									INSERT INTO TableName (A,B,C) SELECT 1,2,3 UNION ALL SELECT 4,5,6 -- SQL SERVER 2005
+
+									UPDATE TableName SET A = CASE B
+													WHEN 1 THEN 'NEW VALUE'
+													WHEN 2 THEN 'NEW VALUE 2'
+													WHEN 3 THEN 'NEW VALUE 3'
+											END
+									WHERE B in (1,2,3)
+									```
+								</script>
+							</section> -->
+					</section>
+					<section>
+						<h2>II. Ưu điểm của lập trình hướng đối tượng.</h2>
+									<ul>
+										<li>Có tính tái sử dụng cao.</li>
+										<li>Dễ mở rộng dự án.</li>
+										<li>Cấu trúc module.</li>
+										<li>Dễ dàng quản lý code khi có sự thay đổi chương trình.</li>
+										<li>Tiết kiệm được tài nguyên đáng kể cho hệ thống.</li>
+										<li>Có tính bảo mật cao.</li>
+									</ul>
+					</section>
+					<section>
+						<section>
+							<h2>III. Một số khái niệm cơ bản trong OOP.</h2>
+						<h4>1. Đối tượng (object)</h4>
+									<ul>
+										<li>Trong lập trình hướng đối tượng, đối tượng được hiểu như là 1 thực thể: người, vật hoặc 1 bảng dữ liệu, . . .</li>
+										<li>Một đối tượng bao gồm 2 thông tin: thuộc tính và phương thức.</li>
+									</ul>
+						
+						</section>
+						<section>
+							<h2>III. Một số khái niệm cơ bản trong OOP.</h2>
+						<h4>2. Lớp (class)</h4>
+						<ul>
+							<li>Các đối tượng có các đặc tính tương tự nhau được gom lại thành 1 lớp đối tượng.</li>
+							<li>Bên trong lớp cũng có 2 thành phần chính đó là thuộc tính và phương thức</li>
+							<li>Ngoài ra, lớp còn được dùng để định nghĩa ra kiểu dữ liệu mới.</li>
+						</ul>
+						</section>
+					</section>
+				<section>
+					<h2>IV. Các tính chất của OOP</h2>
+				</section>
+				<section>
+					<section>
+						<h2>
+							Trừu tượng hóa
+						</h2>
+						<p>Trìu tượng hóa là quá trình đơn giản hóa một đối tượng mà trong đó chỉ bao gồm những đặc điểm quan tâm và bỏ qua những đặc điểm chi tiết nhỏ. </p>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Abstract:
+							```
+							<?php
+							// Parent class
+							abstract class Car {
+								public $name;
+								public function __construct($name) {
+									$this->name = $name;
+								}
+								abstract public function intro() : string;
+							}
+							```
+							Interface: 
+							```
+							<?php  
+		
+							interface MyInterfaceName { 
+								public  function methodA(); 
+								public  function methodB(); 
+							}  
+								
+							?> 
+							```
+						</script>
+					</section> 
+				</section>
+				<section>
+					<section>
+						<h2>
+							Đóng gói
+						</h2>
+						<p>Tính đóng gói (encapsulation) "đóng gói" thuộc tính và phương thức của đối tượng (hoặc lớp) thông qua việc giới hạn quyền truy cập (hoặc thay đổi) giá trị của thuộc tính hoặc quyền gọi phương thức</p>
+					</section>
+					<section>
+						<h3>Mục đích:</h3>
+						<ul>
+							<li>Giảm độ phức tạp của ứng dụng - bằng việc giấu đi thuộc tính và chỉ để  hiện ra phương thức. Khiến cho việc sử dụng class dễ dàng hơn.</li>
+							<li>Truy vập vào thuộc tính của class thông qua phương thức Get/Set, khiến cho class linh hoạt và dễ bảo trì.</li>
+						</ul>
+					</section>
+				</section>
+				<section>
+					<section>
+						<h2>
+							Tính kế thừa
+						</h2>
+						<p>Tính kế thừa trong lập trình hướng đối tượng cho phép một lớp (class) có thể kế thừa các thuộc tính và phương thức từ các lớp khác đã được định nghĩa. Lớp được kế thừa còn được gọi là lớp cha và lớp kế thừa được gọi là lớp con.</p>
+					</section>
+					<section data-markdown>
+						<script type="text/template">
+							Animal:
+							```
+							<?php
+							class Animal
+							{
+									private $family;
+									private $food;
+									public function __construct($family, $food)
+									{
+											$this->family = $family;
+											$this->food   = $food;
+									}
+									public function get_family()
+									{
+											return $this->family;
+									}
+									public function set_family($family)
+									{
+											$this->family = $family;
+									}
+									public function get_food()
+									{
+											return $this->food;
+									}
+									public function set_food($food)
+									{
+											$this->food = $food;
+									}
+							}
+							?> 
+							```
+						</script>
+					</section> 
+					<section data-markdown>
+						<script type="text/template">
+							Lion:
+							```
+							<?php
+							class Lion extends Animal
+							{
+									public function __construct($family, $food)
+									{
+											parent::__construct($family, $food);
+									}
+							}
+							?>
+							```
+						</script>
+					</section>
+				</section>
+				<section>
+						<section>
+								<h2>
+									Tính đa hình
+								</h2>
+								<p>Tính đa hình là khả năng một đối tượng có thể thực hiện một tác vụ theo nhiều cách khác nhau.</p>
+							</section>
+							<section data-markdown>
+								<script type="text/template">
+										```
+										<?php  
+										class Shape  
+										{  
+										function draw(){}  
+										}  
+										class Circle extends Shape  
+										{  
+										function draw()  
+										{  
+										print "Circle has been drawn.</br>";  
+										}  
+										}  
+										class Triangle extends Shape 
+										{  
+										function draw()  
+										{  
+										print "Triangle has been drawn.</br>";  
+										}  
+										}  
+										class Ellipse extends Shape  
+										{  
+										function draw()  
+										{  
+										print "Ellipse has been drawn.";  
+										}  
+										}  
+											
+										```
+									</script>
+							</section>
+							<section>
+									<h3>1: f(o);</h3>
+									<h3>2: o.f();</h3>
+							</section>
+				</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

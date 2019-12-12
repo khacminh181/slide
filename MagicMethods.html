@@ -1,0 +1,344 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+					<section>
+						<h1>Magic method in PHP</h1>
+						<!-- <h3>The HTML Presentation Framework</h3> -->
+						<p>
+								<ul>
+										<li>Nguyễn Khắc Minh</li>
+										<li>Hoàng Thị Thu Uyên</li>
+										<li>Nguyễn Thị Thanh Tâm</li>
+								</ul>
+						</p>
+					</section>
+					<section>
+							<ol><li>Magic methods là gì?</li>
+							<li>Ưu nhược điểm của magic methods.</li>
+							<li >Các magic method trong PHP.</li>
+							</ol>
+					</section>
+					<section>
+						<h2>I. Magic methods là gì ?</h2>
+						<p>- Magic methods là các phương thức đặc biệt để tùy biến các các sự kiện trong php (cụ thể là class).</p>
+						<p>- Magic methods được dùng để xử lý các đối tượng trong lập trình hướng đối tượng</p>
+						<!-- <ul>
+							<li>Tính trừu tượng (abstraction).</li>
+							<li>Tính kế thừa (inheritance).</li>
+							<li>Tính đóng gói (encapsulation).</li>
+							<li>Tính đa hình (polymorphism).</li>
+						</ul> -->
+							<!-- <section data-markdown>
+									<script type="text/template">
+										### a. Tránh truy vấn con kết hợp
+										Thay vì:
+				
+										```
+										SELECT c.Name, 
+										c.City,
+										(SELECT CompanyName FROM Company WHERE ID = c.CompanyID) AS CompanyName 
+										FROM Customer c
+										```
+										Sử dụng: 
+										```
+										SELECT c.Name, 
+													c.City, 
+													co.CompanyName 
+										FROM Customer c 
+											LEFT JOIN Company co
+												ON c.CompanyID = co.CompanyID
+										```
+									</script>
+								</section>
+
+							<section data-markdown>
+								<script type="text/template">
+									### a. Tránh truy vấn con kết hợp
+									Thay vì:
+			
+									```
+									for (int i = 0; i < 1000; i++) {
+										SqlCommand cmd = new SqlCommand("INSERT INTO TBL (A,B,C) VALUES...");
+										cmd.ExecuteNonQuery();
+									}
+									```
+									Sử dụng: 
+									```
+									INSERT INTO TableName (A,B,C) VALUES (1,2,3),(4,5,6),(7,8,9) -- SQL SERVER 2008
+
+									INSERT INTO TableName (A,B,C) SELECT 1,2,3 UNION ALL SELECT 4,5,6 -- SQL SERVER 2005
+
+									UPDATE TableName SET A = CASE B
+													WHEN 1 THEN 'NEW VALUE'
+													WHEN 2 THEN 'NEW VALUE 2'
+													WHEN 3 THEN 'NEW VALUE 3'
+											END
+									WHERE B in (1,2,3)
+									```
+								</script>
+							</section> -->
+					</section>
+					<section>
+						<h2>II. Ưu nhược điểm của magic methods.</h2>
+						<p>Uư điểm:</p>
+							<ul>
+								<li>Giúp cho chúng ta tùy biến được các hành vi, thêm cách lựa chọn để xử lý một đối tượng trong php.</li>
+								<li>Nó giúp cho chúng ta có thể thao tác với một đối tượng theo cách mình muốn.</li>
+							</ul>
+						<p>Nhược điểm:</p>
+						<ul>
+							<li>Một magic methods có tốc độ chậm hơn các phương thức bình thường</li>
+						</ul>
+					</section>
+					
+				<section data-markdown>
+					<script type="text/template">
+						### III. Các magic method trong PHP
+						Trong PHP có hỗ trợ chúng ta 15 magic method với từng chức năng khác nhau:
+						```
+						 __construct() // gọi khi khởi tạo đối tượng.
+
+						 __destruct() // gọi khi hủy đối tượng.
+
+						 __set() // gọi khi ta truyền dữ liệu cho một thuộc tính không được phép truy cập.
+
+						 __get() // khi đọc dữ liệu từ một thuộc tính không được phép truy cập.
+
+						 __isset() // được gọi khi gọi hàm isset() hoặc empty() trên một thuộc tính không được phép truy cập.
+
+						 __unset() // được gọi khi hàm unset() được sử dụng trong một thuộc tính không được phép truy cập.
+
+						 __call() // được gọi khi ta gọi một phương thức không được phép truy cập trong phạm vi của một đối tượng.
+
+						 __callstatic() // được kích hoạt khi ta gọi một phương thức không được phép truy cập trong phạm vi của một phương thức tĩnh.
+
+						 __toString() // phương thức này giúp class chỉ định xem sẽ in ra cái gì khi nó được dùng.
+
+						 __invoke() // phương thức này được gọi khi một lệnh cố gắng gọi một đối tượng như một hàm.
+
+						 __sleep() // được gọi khi serialize() một đối tượng.
+
+						 __wakeup // được gọi khi unserialize() đối tượng.
+
+						 __set_state() 
+
+						 __clone() // được sử dụng khi chúng ta clone một object.
+
+						 __debugInfo() // được gọi khi chúng ta sử dụng hàm vardump().
+						
+						```
+					</script>
+				</section>
+				<section data-markdown>
+					<script type="text/template">
+						### __construct(): 
+						Hàm được gọi khi ta khởi tạo một đối tượng
+						```
+						function __construct([parameter list]){
+
+								Method body //It's usually used to set initial values ​​for member variables
+						
+						}
+						```
+					</script>
+				</section> 
+
+				<section data-markdown>
+					<script type="text/template">
+						### __destruct(): 
+						Hàm được gọi khi một đối tượng bị hủy
+						```
+						function __destruct()
+						{
+								//method body
+						}
+						```
+					</script>
+				</section> 
+
+				<section>
+					<section data-markdown>
+						<script type="text/template">
+							### __call(): 
+							Hàm được gọi khi ta gọi một phương thức không được phép truy cập trong phạm vi của một đối tượng.
+							```
+							<?php
+							class Person
+							{                             
+									function say()
+									{
+										echo "Hello, world!<br>";
+									}     
+	
+									function __call($funName, $arguments)
+									{
+										echo "The function you called：" . $funName . "(parameter：" ;  // Print the method's name that is not existed.
+										print_r($arguments); // Print the parameter list of the method that is not existed.
+										echo ")does not exist!！<br>\n";                   
+									}                                         
+							}
+							$Person = new Person();           
+							$Person->run("teacher"); // If the method which is not existed is called within the object, then the __call() method will be called automatically.
+							$Person->eat("John", "apple");             
+							$Person->say();
+							```
+						</script>
+					</section> 
+					<section data-markdown>
+						<script type="text/template">
+							Kết quả: 
+							```
+							The function you called: run (parameter: Array([0] => teacher)) does not exist!
+							The function you called: eat (parameter: Array([0] => John[1] => apple)) does not exist!
+							Hello world!
+							```
+						</script>
+					</section> 
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### __get(): 
+						Hàm được gọi khi ta truy cập vào thuộc tính không tồn tại hoặc thuộc tính private trong đối tượng
+						```
+						<?php
+						class Person
+						{
+								private $name;
+								private $age;
+
+								function __construct($name="", $age=1)
+								{
+										$this->name = $name;
+										$this->age = $age;
+								}
+
+								public function __get($propertyName)
+								{   
+										if ($propertyName == "age") {
+												if ($this->age > 30) {
+														return $this->age - 10;
+												} else {
+														return $this->$propertyName;
+												}
+										} else {
+												return $this->$propertyName;
+										}
+								}
+						}
+						$Person = new Person("John", 60);   // Instantiate the object with the Person class and assign initial values to the properties with the constructor.
+						echo "Name：" . $Person->name . "<br>";   // Name: John
+						echo "Age：" . $Person->age . "<br>";    // Age: 50
+						```
+					</script>
+				</section>
+
+				<section data-markdown>
+					<script type="text/template">
+						### __set()
+						Hàm được gọi khi ta truyền dữ liệu vào thuộc tính không tồn tại hoặc thuộc tính private trong đối tượng.
+						```
+						<?php
+						class Person
+						{
+								private $name;
+								private $age;
+
+								public function __construct($name="",  $age=25)
+								{
+										$this->name = $name;
+										$this->age  = $age;
+								}
+
+								public function __set($property, $value) {
+										if ($property=="age")
+										{
+												if ($value > 150 || $value < 0) {
+														return;
+												}
+										}
+										$this->$property = $value;
+								}
+
+								public function say(){
+										echo "My name is ".$this->name.",I'm ".$this->age." years old";
+								}
+						}
+
+						$Person=new Person("John", 25); //Note that the initial value will be changed by the code below.
+						$Person->name = "Lili";     //The "name" property is assigned successfully. If there is no __set() method, then the program will throw an exception.
+						$Person->age = 16; //The "age" property is assigned successfully.
+						$Person->age = 160; //160 is an invalid value, so it fails to be assigned.
+						$Person->say();  //print：My name is Lili, I'm 16 years old.
+						```
+					</script>
+				</section> 
+
+
+				<section>
+						<h4>__isset():</h4>
+						Phương thức __isset() sẽ được gọi khi chúng ta thực hiện kiểm tra một thuộc tính không được phép truy cập của một đối tượng, hay kiểm tra một thuộc tính không tồn tại trong đối tượng đó
+					<img data-src="https://images.viblo.asia/c2f0ab4d-2b13-4ba9-88f7-e18d000da2db.PNG"/>
+				</section>
+
+				<section>
+					<h4>__unset():</h4>
+					được gọi khi hàm unset() được sử dụng trong một thuộc tính không được phép truy cập. Tương tự như hàm isset. Khi ta Unset 1 thuộc tính không tồn tại thì method __unset() sẽ được gọi.
+				<img data-src="https://images.viblo.asia/fe70a344-595a-4f86-bb44-5117f77122df.PNG"/>
+			</section>
+
+			<section>
+				<h4>__toString():</h4>
+				Phương thức này được gọi khi chúng ta in echo đối tượng. Method __toString() sẽ bắt buộc phải trả về 1 dãy String.
+			<img data-src="https://images.viblo.asia/6d1ecf87-5f36-4903-a137-e2c3df9f1756.PNG"/>
+		</section>
+
+		<section>
+			<h4> __invoke():</h4>
+			Phương thức này được gọi khi ta cố gắng gọi một đối tượng như một hàm.
+		<img data-src="https://images.viblo.asia/5c7f6b84-7f0b-4b74-8c7d-79073d653bc9.PNG"/>
+	</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,228 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+					<section>
+						<h1>Error handling in PHP</h1>
+						<!-- <h3>The HTML Presentation Framework</h3> -->
+						<p>
+								<ul>
+										<li>Nguyễn Khắc Minh</li>
+										<li>Hoàng Thị Thu Uyên</li>
+								</ul>
+						</p>
+					</section>
+					<section>
+							<h2>Error handling in PHP</h2>
+							<ol>
+							<li>Tại sao cần phải xử lý ngoại lệ ?</li>
+							<li >Cách xử lý ngoại lệ trong PHP</li>
+							</ol>
+					</section>
+
+					<section>
+						<h2>I. Tại sao cần phải xử lý lỗi ?</h2>
+						<p>- Phòng tránh những kết quả không mong muốn hiển thị trên pages của mình gây khó chịu cho người sử dụng.</p>
+						<p>- PHP exception thường được sử dụng để thay đổi luồng chạy của ứng dụng khi có bất kỳ một lỗi đã biết xuất hiện.</p>
+					</section>
+
+					<section>
+						<h2>II. Cách xử lý lỗi trong PHP.</h2>
+						<p>Khi một lỗi xuất hiện, tùy thuộc vào việc bạn setting config, PHP hiển thị error message lên trên web browser và những thông tin liên quan đến lỗi đó.</p>
+						<p>PHP cung cấp nhiều cách để xử lý lỗi: </p>
+						<ul>
+							<li>Die statements</li>
+							<li>Custom error handlers</li>
+							<li>Exception Handling</li>
+						</ul>
+					</section>
+
+					<section data-markdown>
+							<script type="text/template">
+								### Die statements
+								#### Sử dụng hàm die() kết hợp echo và exit(). Việc này rất hữu dụng khi ta muốn hiển thị lỗi và dừng chương trình khi lỗi xuất hiện.
+								```
+								<?php
+								if(!file_exists("/tmp/test.txt")) {
+										die("File not found");
+								}else {
+										$file = fopen("/tmp/test.txt","r");
+										print "Opend file sucessfully";
+								}
+								// Test of the code here.
+								?>
+								```
+							</script>
+					</section>
+
+					<section>
+							<section >
+									<h4>Custom error handlers</h4>
+									<p style="font-size: 28px" >Người dùng có thể tự tạo hàm xử lý lỗi sẽ được gọi khi lỗi xuất hiện.</p>
+									<p style="font-size: 26px" data-markdown>
+									```
+									error_function(error_level,error_message, error_file,error_line,error_context);
+									```
+									</p>
+								<table style="font-size: 18px">
+										<thead>
+											<tr>
+												<th>Tham số</th>
+												<th>Miêu tả</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr>
+												<td>error_level</td>
+												<td>Bắt buộc - Xác định cấp độ lỗi cho lỗi tự định nghĩa (user-defined). Phải là một giá trị số</td>
+											</tr>
+											<tr>
+												<td>error_message</td>
+												<td>Bắt buộc - Xác định error message lỗi tự định nghĩa</td>
+											</tr>
+											<tr>
+												<td>error_file</td>
+												<td>Tùy ý - Xác định tên file trong đó lỗi xảy ra</td>
+											</tr>
+											<tr>
+												<td>error_line</td>
+												<td>Tùy ý - Xác định số dòng trong đó lỗi xảy ra</td>
+											</tr>
+											<tr>
+												<td>error_file</td>
+												<td>Tùy ý - Xác định một mảng chứa mọi biến và giá trị của chúng, sử dụng khi lỗi xảy ra</td>
+											</tr>
+										</tbody>
+									</table>
+						</section>
+						<section data-markdown>
+								<script type="text/template">
+									```
+									<?php
+										error_reporting( E_ERROR );
+										
+										function handleError($errno, $errstr,$error_file,$error_line)
+										{
+												echo "<b>Xảy ra lỗi:</b> [$errno] $errstr - $error_file:$error_line";
+												echo "<br />";
+												echo "Kết thúc PHP Script";
+												die();
+										}
+										
+										//thiết lập error handler
+										set_error_handler("handleError");
+										
+										//trigger error
+										myFunction();
+									?>
+									```
+								</script>
+							</section> 
+					</section>
+
+					
+					<section>
+							<section>
+									<h4>Exception Handling</h4>
+									<p style="font-size: 30px">PHP 5 có một Exception Model tương tự như trong các ngôn ngữ lập trình khác. Exception là quan trọng và cung cấp một điều khiển tốt hơn thông qua xử lý lỗi.</p>
+									<ul style="font-size: 26px">
+										<li>Try − Một hàm sử dụng một exception nên là một khối try. Nếu exception không kích hoạt, code sẽ tiếp tục như bình thường. Tuy nhiên, nếu exception kích hoạt, một exception được "thrown".</li>
+										<li>Throw − Đây là cách bạn kích hoạt một exception. Mỗi "thrown" phải có ít nhất một "catch".</li>
+										<li>Catch − Mỗi khối "catch" thu nhận một exception và tạo một đối tượng chứa thông tin exception đó.</li>
+									</ul>
+								</section>
+								<section>
+									<p>Tại sao phải xử lý ngoại lệ ?</p>
+									<p>Sau đây là những ưu điểm chính của xử lý ngoại lệ đối với xử lý lỗi</p>		
+									<ul style="font-size: 26px">
+										<li>
+											Tách code xử lý lỗi với lỗi thông thường bằng việc sử dụng try/catch, khiến code dễ đọc hơn. 
+										</li>
+										<li>
+											Nhóm các loại lỗi cơ bản.
+										</li>
+									</ul>
+										
+								</section>
+								
+							<section data-markdown>
+								<script type="text/template">
+									```
+									<?php
+										try {
+												$error = 'Luôn luôn ném lỗi này';
+												throw new Exception($error);
+												
+												// Phần code mà theo sau một ngoại lệ sẽ không được thực thi.
+												echo 'Phần code này không bao giờ được thực thi';
+										}
+										catch (Exception $e) {
+												echo 'Bắt ngoại lệ: ',  $e->getMessage(), "\n";
+										}
+										
+										// Tiếp tục tiến trình thực thi
+										echo 'Hello World';
+									?>
+									
+									```
+								</script>
+							</section>
+			
+							<section>
+									Trong ví dụ trên, hàm <strong>$e->getMessage</strong> được sử dụng để lấy error message. Dưới đây là một số hàm có thể được sử dụng từ lớp Exception trong PHP.
+									<ul style="font-size: 26px">
+										<li>
+											getMessage() − thông báo của exception
+										</li>
+										<li>getCode() − code của exception</li>
+										<li>getFile() − tên source file</li>
+										<li>getLine() − source line</li>
+										<li>getTrace() − n mảng của backtrace()</li>
+										<li>getTraceAsString() − chuỗi được định dạng của trace</li>
+									</ul>
+							</section>
+					</section>
+
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>

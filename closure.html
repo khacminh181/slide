@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+					<section>
+						<h1>Closure trong PHP</h1>
+						<!-- <h3>The HTML Presentation Framework</h3> -->
+						<p>
+								<ul>
+										<li>Nguyễn Khắc Minh</li>
+										<li>Hoàng Thị Thu Uyên</li>
+										<li>Nguyễn Thị Thanh Tâm</li>
+								</ul>
+						</p>
+					</section>
+					<section>
+							<ol><li>Lambda là gì?</li>
+							<li>Closure là gì?</li>
+							</ol>
+					</section>
+					<section>
+						<h2>I. Lambda là gì?</h2>
+						<p>Hàm nặc danh là một hàm không có tên và Lambda là một hàm nặc danh có thể được gán vào một biến hoặc truyền vào một hàm khác như một tham số</p>
+						<img data-src="./Image/closure1.png"/>
+						<img data-src="./Image/closure2.png"/>
+					</section>
+					<section>
+						<p>Do hàm nặc danh không có tên nên bạn cần gán nó với một biến hoặc truyền nó vào như một tham số:</p>
+						<img data-src="./Image/closure3.png"/>
+					</section>
+					<section>
+						<p>Truyền hàm nặc danh vào như tham số.</p>
+						<img data-src="./Image/closure4.png"/>
+					</section>
+
+					<section>
+						<h2>II. Closure là gì?</h2>
+						<ul>
+								<li>Closure về cơ bản giống hàm nặc danh</li>
+								<li>Nó có thể truy cập các biến bên ngoài phạm vi mà nó tạo ra. </li>
+								<li>Closure đóng gói phạm vi của nó, nó không có quyền truy nhập vạo phạm vi mà nó được định nghĩa hoặc thực hiện</li>
+								<li>Nó có thể kế thừa các biến từ phạm vi cha (nơi closure được định nghĩa) vào closure với từ khóa use</li>
+						</ul>
+					</section>
+					<section>
+						<img data-src="./Image/closure5.png"/>
+					</section>
+
+					<section>
+						<p>Để cập nhật được giá trị gốc chúng ta sử dụng con trỏ tham chiếu & trong PHP</p>
+						<img height="500px" data-src="./Image/closure6.png"/>
+					</section>					
+					
+					<section>
+						<p>Closure là rất hữu dụng khi sử dụng các hàm PHP mà chấp nhận một hàm callback kiểu như array_map, array_filter...</p>
+						<img data-src="./Image/closure7.png"/>
+					</section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
